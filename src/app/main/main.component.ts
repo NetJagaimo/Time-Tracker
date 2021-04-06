@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatabaseService } from '../database.service';
+
 
 
 @Component({
@@ -10,14 +10,9 @@ import { DatabaseService } from '../database.service';
 export class MainComponent implements OnInit {
 
   constructor(
-    private databaseService: DatabaseService
   ) { }
 
   ngOnInit(): void {
-    this.databaseService.getTasks()
-      .subscribe((value) => {
-        console.log(value);
-      });
   }
 
 }

@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main/main.component';
+import { TaskService } from './task.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { MainComponent } from './main/main.component';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    TaskService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

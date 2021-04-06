@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Time } from '../time.model';
 import { FormControl, Validators } from '@angular/forms';
-import { DatabaseService } from '../database.service';
+import { Task, TaskService } from '../task.service';
 import { RxDatabase } from 'rxdb';
 
 @Component({
@@ -22,13 +22,14 @@ export class TraywindowComponent implements OnInit {
   };
   isPaused: boolean = false;
   db: RxDatabase;
+  taskID: number;
 
   doingFormControl = new FormControl('', [
     Validators.required,
   ]);
 
   constructor(
-    private databaseService: DatabaseService
+    private taskService: TaskService
   ) { }
 
   ngOnInit(): void { 
@@ -48,7 +49,11 @@ export class TraywindowComponent implements OnInit {
   onStop() {
     this.recordEndTime();
     this.stopTimer();
-    this.databaseService.recordTaskEndTime(this.doing, this.endTime);
+    this.taskService.recordTaskEndTime(this.taskID, this.endTime);
+    this.taskService.getAll()
+      .then((tasks) => {
+        console.log(tasks);
+      });
   }
 
   onEnter(value: string): void {
@@ -57,7 +62,13 @@ export class TraywindowComponent implements OnInit {
       this.doing = value;
       this.recordStartTime();
       this.startTimer();
-      this.databaseService.addTasks(this.doing, this.startTime);
+      
+      this.taskService.addTask({
+        taskName: this.doing, 
+        startTime: this.startTime
+      }).then((id) => {
+        this.taskID = id;
+      });
     } else {
       this.doingFormControl.setErrors({'required': true})
     }
