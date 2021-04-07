@@ -8,6 +8,7 @@ import Dexie from 'dexie';
 export class DatabaseService extends Dexie  {
 
     constructor() {
+      Dexie.delete('TimeTrackerDatabase'); 
       super('TimeTrackerDatabase');
       this.version(1).stores({
         tasks: '++id, taskName, startTime, endTime'

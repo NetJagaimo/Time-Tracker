@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Dexie from 'dexie';
+import Dexie, { liveQuery } from 'dexie';
 
 import { DatabaseService } from './core/database.service';
 
@@ -21,7 +21,9 @@ export class TaskService {
   }
 
   getAll() {
-    return this.table.toArray();
+    return liveQuery(async () => {
+      return await this.table.toArray();
+    });
   }
 
   addTask(data: Task) {

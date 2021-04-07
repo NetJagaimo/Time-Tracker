@@ -50,10 +50,6 @@ export class TraywindowComponent implements OnInit {
     this.recordEndTime();
     this.stopTimer();
     this.taskService.recordTaskEndTime(this.taskID, this.endTime);
-    this.taskService.getAll()
-      .then((tasks) => {
-        console.log(tasks);
-      });
   }
 
   onEnter(value: string): void {
