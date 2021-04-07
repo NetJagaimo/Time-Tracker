@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Task, TaskService } from '../task.service';
 
 
@@ -11,8 +10,6 @@ import { Task, TaskService } from '../task.service';
 export class MainComponent implements OnInit {
   tasks: Array<Task> = [];
   displayedColumns: string[] = ['id', 'taskName', 'startTime', 'endTime'];
-
-  @ViewChild(MatTable) table: MatTable<Task>;
 
   constructor(
     private taskService: TaskService,
