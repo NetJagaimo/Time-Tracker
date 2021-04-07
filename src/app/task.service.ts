@@ -37,4 +37,8 @@ export class TaskService {
   remove(id: number) {
     return this.table.delete(id);
   }
+
+  removeAll() {
+    return this.table.clear();
+  }
 }

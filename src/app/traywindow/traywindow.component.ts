@@ -63,6 +63,7 @@ export class TraywindowComponent implements OnInit {
         taskName: this.doing, 
         startTime: this.startTime
       }).then((id) => {
+        console.log('added');
         this.taskID = id;
       });
     } else {

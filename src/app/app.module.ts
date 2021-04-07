@@ -12,8 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+
 import { MainComponent } from './main/main.component';
 import { TaskService } from './task.service';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +25,7 @@ import { TaskService } from './task.service';
     MainComponent
   ],
   imports: [
+    MatTableModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
