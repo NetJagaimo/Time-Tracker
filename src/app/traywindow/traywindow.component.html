@@ -20,7 +20,7 @@
   <div fxLayout="row" fxLayoutAlign="center center">
     <mat-icon class="time-icon">schedule</mat-icon>
     <p class="time">
-      {{ currentTimePassed.hours | number:'2.0' }}:{{ currentTimePassed.minutes | number:'2.0' }}:{{ currentTimePassed.seconds | number:'2.0' }}
+      {{currentTotalMilliseconds | duration}}
     </p>
   </div>
   <div *ngIf="doing" class="control-bar" fxLayout="row" fxLayoutAlign="space-evenly">

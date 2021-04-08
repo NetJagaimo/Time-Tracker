@@ -11,15 +11,10 @@ import { RxDatabase } from 'rxdb';
 })
 export class TraywindowComponent implements OnInit {
   doing: string;
-  currentTotalSeconds: number = 0;
+  currentTotalMilliseconds: number = 0;
   startTime: number;
   endTime: number;
   timer: any;
-  currentTimePassed: Time = {
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  };
   isPaused: boolean = false;
   db: RxDatabase;
   taskID: number;
@@ -82,17 +77,8 @@ export class TraywindowComponent implements OnInit {
   startTimer() {
     this.isPaused = false;
     this.timer = setInterval(() => {
-      this.currentTotalSeconds++;
-      this.countCurrentTimePassed();
+      this.currentTotalMilliseconds += 1000;
     }, 1000);
-  }
-
-  countCurrentTimePassed() {
-    this.currentTimePassed = {
-      seconds: this.currentTotalSeconds % 60,
-      minutes: Math.floor(this.currentTotalSeconds / 60) % 60,
-      hours: Math.floor(this.currentTotalSeconds / 3600)
-    };
   }
 
   stopTimer() {

@@ -16,13 +16,15 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MainComponent } from './main/main.component';
 import { TaskService } from './task.service';
+import { DurationPipe } from './core/duration.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TraywindowComponent,
-    MainComponent
+    MainComponent,
+    DurationPipe,
   ],
   imports: [
     MatTableModule,
