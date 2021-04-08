@@ -16,9 +16,6 @@ export class ElectronService {
   }
 
   createMainWindow() {
-    ipcRenderer.invoke('create-main-window')
-      .then((value) => {
-        console.log(value);
-      });
+    ipcRenderer.invoke('create-main-window');
   }
 }

@@ -29,8 +29,6 @@ export class TraywindowComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
-    this.electronService.createMainWindow();
-    
   }
 
   onStart() {
@@ -85,6 +83,10 @@ export class TraywindowComponent implements OnInit {
   stopTimer() {
     this.isPaused = true;
     clearInterval(this.timer);
+  }
+
+  openMainWindow() {
+    this.electronService.createMainWindow();
   }
 
 }
