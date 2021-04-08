@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, screen } = require('electron')
 const { MenuApp } = require('./MenuApp');
 
 
@@ -11,6 +11,13 @@ const createMainWindow = () => {
       contextIsolation: false
     }
   });
+
+  const currentDisplay = screen.getDisplayNearestPoint(screen.getCursorScreenPoint());
+  const currentWorkArea = currentDisplay.workArea;
+  const winSize = win.getSize();
+  const x = Math.floor((currentWorkArea.x + currentWorkArea.width / 2) - (winSize[0] / 2));
+  const y = Math.floor(currentWorkArea.y + currentWorkArea.height / 2 - (winSize[1] / 2));
+  win.setPosition(x, y);
 
   win.loadURL('http://localhost:4200/main')
 };
