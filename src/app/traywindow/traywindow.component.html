@@ -7,7 +7,7 @@
 </mat-toolbar>
 
 <form class="task-form" fxLayout="row" fxLayoutAlign="center">
-  <mat-form-field *ngIf="!doing" class="task-input">
+  <mat-form-field class="task-input">
     <mat-label>What you gonna do now?</mat-label>
     <input
       [(ngModel)]="doingInput"
@@ -29,7 +29,7 @@
       {{currentTotalMilliseconds | duration}}
     </p>
   </div>
-  <div *ngIf="doing" class="control-bar" fxLayout="row" fxLayoutAlign="space-evenly">
+  <div class="control-bar" fxLayout="row" fxLayoutAlign="space-evenly">
     <button 
       *ngIf="isPaused; else pausedButton" 
       mat-mini-fab 

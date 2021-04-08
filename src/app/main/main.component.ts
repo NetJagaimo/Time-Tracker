@@ -9,7 +9,7 @@ import { Task, TaskService } from '../task.service';
 })
 export class MainComponent implements OnInit {
   tasks: Array<Task> = [];
-  displayedColumns: string[] = ['id', 'taskName', 'startTime', 'endTime', 'duration'];
+  displayedColumns: string[] = ['taskName', 'startTime', 'endTime', 'duration'];
 
   constructor(
     private taskService: TaskService,

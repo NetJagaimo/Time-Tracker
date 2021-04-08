@@ -10,8 +10,8 @@ import { ElectronService } from '../core/electron.service';
   styleUrls: ['./traywindow.component.css']
 })
 export class TraywindowComponent implements OnInit {
-  doingInput: string;
-  doing: string;
+  doingInput: string = "";
+  doing: string = "";
   currentTotalMilliseconds: number = 0;
   startTime: number;
   endTime: number;
@@ -33,7 +33,7 @@ export class TraywindowComponent implements OnInit {
 
   onEnter(event: KeyboardEvent): void {
     if (event.key === "Enter") {
-      console.log(this.doingInput);
+      this.doingFormControl.disable();
       const value = this.doingInput.trim()
       if(value) {
         this.doing = value;
@@ -67,6 +67,7 @@ export class TraywindowComponent implements OnInit {
     this.stopTimer();
     this.taskService.recordTaskEndTime(this.taskID, this.endTime);
     this.reset();
+    this.doingFormControl.enable();
   }
 
   recordStartTime() {
