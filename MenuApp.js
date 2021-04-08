@@ -19,7 +19,9 @@ class MenuApp {
         contextIsolation: false
       },
       frame: false,
-      show: false
+      show: false,
+      movable: false,
+      resizable: false
     });
 
     win.loadURL('http://localhost:4200/traywindow');
