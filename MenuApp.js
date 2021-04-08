@@ -16,6 +16,7 @@ class MenuApp {
       height: 300,
       webPreferences: {
         nodeIntegration: true,
+        contextIsolation: false
       },
       frame: false,
       show: false

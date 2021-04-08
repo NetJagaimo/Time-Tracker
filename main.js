@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const { MenuApp } = require('./MenuApp');
 
 
@@ -8,6 +8,7 @@ const createMainWindow = () => {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false
     }
   });
 
@@ -38,3 +39,7 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.handle('create-main-window', async (event) => {
+  return 'createing';
+});

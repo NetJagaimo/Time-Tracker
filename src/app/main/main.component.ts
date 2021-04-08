@@ -17,7 +17,6 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('init');
     this.taskService.getAll()
       .subscribe({
         next: (result: Task[]) => { 

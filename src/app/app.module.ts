@@ -17,6 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MainComponent } from './main/main.component';
 import { TaskService } from './task.service';
 import { DurationPipe } from './core/duration.pipe';
+import { ElectronService } from './core/electron.service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { DurationPipe } from './core/duration.pipe';
     BrowserAnimationsModule
   ],
   providers: [
-    TaskService
+    TaskService,
+    ElectronService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Time } from '../time.model';
 import { FormControl, Validators } from '@angular/forms';
-import { Task, TaskService } from '../task.service';
+import { TaskService } from '../task.service';
 import { RxDatabase } from 'rxdb';
+import { ElectronService } from '../core/electron.service';
 
 @Component({
   selector: 'app-traywindow',
@@ -24,10 +24,12 @@ export class TraywindowComponent implements OnInit {
   ]);
 
   constructor(
-    private taskService: TaskService
+    private taskService: TaskService,
+    private electronService: ElectronService
   ) { }
 
   ngOnInit(): void { 
+    this.electronService.createMainWindow();
     
   }
 
@@ -58,7 +60,6 @@ export class TraywindowComponent implements OnInit {
         taskName: this.doing, 
         startTime: this.startTime
       }).then((id) => {
-        console.log('added');
         this.taskID = id;
       });
     } else {
@@ -85,4 +86,5 @@ export class TraywindowComponent implements OnInit {
     this.isPaused = true;
     clearInterval(this.timer);
   }
+
 }
