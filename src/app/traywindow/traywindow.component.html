@@ -5,16 +5,15 @@
     <mat-icon>home</mat-icon>
   </button>
 </mat-toolbar>
+
 <form class="task-form" fxLayout="row" fxLayoutAlign="center">
-  <mat-form-field class="task-input">
+  <mat-form-field *ngIf="!doing" class="task-input">
     <mat-label>What you gonna do now?</mat-label>
     <input
-      #doingInput
+      [(ngModel)]="doingInput"
       matInput 
       placeholder="e.g. Programming"
-      (keyup.enter)="
-        onEnter(doingInput.value); 
-        doingInput.value='';"
+      (keypress)="onEnter($event)"
       [formControl]="doingFormControl">
     <mat-error *ngIf="doingFormControl.hasError('required')">
       Please input the task you going to do.
@@ -22,8 +21,8 @@
   </mat-form-field>
 </form>
 
-<div fxLayout="column" fxLayoutAlign="none center">
-  <h1 class="doing-task">Doing: {{ doing }}</h1>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <h1 class="doing-task">Doing : {{ doing }}</h1>
   <div fxLayout="row" fxLayoutAlign="center center">
     <mat-icon class="time-icon">schedule</mat-icon>
     <p class="time">

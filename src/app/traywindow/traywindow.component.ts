@@ -10,13 +10,13 @@ import { ElectronService } from '../core/electron.service';
   styleUrls: ['./traywindow.component.css']
 })
 export class TraywindowComponent implements OnInit {
+  doingInput: string;
   doing: string;
   currentTotalMilliseconds: number = 0;
   startTime: number;
   endTime: number;
   timer: any;
   isPaused: boolean = false;
-  db: RxDatabase;
   taskID: number;
 
   doingFormControl = new FormControl('', [
@@ -29,6 +29,27 @@ export class TraywindowComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
+  }
+
+  onEnter(event: KeyboardEvent): void {
+    if (event.key === "Enter") {
+      console.log(this.doingInput);
+      const value = this.doingInput.trim()
+      if(value) {
+        this.doing = value;
+        this.recordStartTime();
+        this.startTimer();
+        
+        this.taskService.addTask({
+          taskName: this.doing, 
+          startTime: this.startTime
+        }).then((id) => {
+          this.taskID = id;
+        });
+      } else {
+        this.doingFormControl.setErrors({'required': true})
+      }
+    }
   }
 
   onStart() {
@@ -45,24 +66,7 @@ export class TraywindowComponent implements OnInit {
     this.recordEndTime();
     this.stopTimer();
     this.taskService.recordTaskEndTime(this.taskID, this.endTime);
-  }
-
-  onEnter(value: string): void {
-    value = value.trim()
-    if(value) {
-      this.doing = value;
-      this.recordStartTime();
-      this.startTimer();
-      
-      this.taskService.addTask({
-        taskName: this.doing, 
-        startTime: this.startTime
-      }).then((id) => {
-        this.taskID = id;
-      });
-    } else {
-      this.doingFormControl.setErrors({'required': true})
-    }
+    this.reset();
   }
 
   recordStartTime() {
@@ -85,8 +89,21 @@ export class TraywindowComponent implements OnInit {
     clearInterval(this.timer);
   }
 
+  reset() {
+    this.doing = '';
+    this.currentTotalMilliseconds = 0;
+    this.startTime = -1;
+    this.endTime = -1;
+    this.taskID = -1;
+    this.isPaused = false;
+  }
+
   openMainWindow() {
     this.electronService.createMainWindow();
+  }
+
+  showEvent($event) {
+    console.dir($event);
   }
 
 }
