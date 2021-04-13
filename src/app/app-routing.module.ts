@@ -5,6 +5,11 @@ import { TraywindowComponent } from './traywindow/traywindow.component';
 
 const routes: Routes = [
   {
+    path:'',
+    redirectTo: "traywindow",
+    pathMatch: "full"
+  },
+  {
     path: "main",
     component: MainComponent
   },
@@ -15,7 +20,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -19,7 +19,13 @@ const createMainWindow = () => {
   const y = Math.floor(currentWorkArea.y + currentWorkArea.height / 2 - (winSize[1] / 2));
   win.setPosition(x, y);
 
-  win.loadURL('http://localhost:4200/main')
+  // win.loadURL('http://localhost:4200/main')
+  win.loadURL(url.format({
+    pathname: path.join(__dirname, '/dist/time-tracker/index.html#', 'main'),
+    protocol: 'file:',
+    slashes: true
+  }))
+
 };
 
 // This method will be called when Electron has finished

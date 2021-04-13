@@ -1,4 +1,6 @@
 const { BrowserWindow, Tray } = require('electron');
+const url = require('url');
+const path = require('path');
 
 
 class MenuApp {
@@ -25,7 +27,12 @@ class MenuApp {
       closable: false
     });
 
-    win.loadURL('http://localhost:4200/traywindow');
+    // win.loadURL('http://localhost:4200/traywindow');
+    win.loadURL(url.format({
+      pathname: path.join(__dirname, '/dist/time-tracker/index.html#'),
+      protocol: 'file:',
+      slashes: true
+    }))
 
     win.on('close', () => {
       this.win = undefined;
@@ -46,9 +53,9 @@ class MenuApp {
     });
 
     // comment when on develop mode
-    // this.win.on('blur', () => {
-    //   this.win.hide();
-    // });
+    this.win.on('blur', () => {
+      this.win.hide();
+    });
   }
 
   toggleWindow(bounds) {
