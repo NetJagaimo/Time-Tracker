@@ -55,11 +55,18 @@ export class TraywindowComponent implements OnInit {
   onStart() {
     this.recordStartTime();
     this.startTimer();
+    this.taskService.addTask({
+      taskName: this.doing, 
+      startTime: this.startTime
+    }).then((id) => {
+      this.taskID = id;
+    });
   }
 
   onPause() {
     this.recordEndTime();
     this.stopTimer();
+    this.taskService.recordTaskEndTime(this.taskID, this.endTime);
   }
 
   onStop() {
