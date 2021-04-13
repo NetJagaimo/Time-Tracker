@@ -11,7 +11,7 @@
     <mat-label>What you gonna do now?</mat-label>
     <input
       [(ngModel)]="doingInput"
-      matInput 
+      matInput
       placeholder="e.g. Programming"
       (keypress)="onEnter($event)"
       [formControl]="doingFormControl">
@@ -34,21 +34,24 @@
       *ngIf="isPaused; else pausedButton" 
       mat-mini-fab 
       color="primary"
-      (click)="onStart()">
+      (click)="onStart()"
+      [disabled]="!doing">
       <mat-icon>play_arrow</mat-icon>
     </button>
     <ng-template #pausedButton>
       <button 
         mat-mini-fab 
         color="primary"
-        (click)="onPause()">
+        (click)="onPause()"
+        [disabled]="!doing">
         <mat-icon>pause</mat-icon>
       </button>
     </ng-template>
     <button 
       mat-mini-fab 
       color="warn" 
-      (click)="onStop()">
+      (click)="onStop()"
+      [disabled]="!doing">
       <mat-icon>stop</mat-icon>
     </button>
   </div>
