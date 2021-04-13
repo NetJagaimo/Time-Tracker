@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
     this.taskService.getAll()
       .subscribe({
         next: (result: Task[]) => { 
-          this.tasks = result;
+          this.tasks = result.reverse();
           this.changeDetectorRdf.detectChanges();
         },
         error: console.error

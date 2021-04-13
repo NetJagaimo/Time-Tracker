@@ -14,14 +14,20 @@
       matInput
       placeholder="e.g. Programming"
       (keypress)="onEnter($event)"
-      [formControl]="doingFormControl">
+      [formControl]="doingFormControl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredDoingOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
     <mat-error *ngIf="doingFormControl.hasError('required')">
       Please input the task you going to do.
     </mat-error>
   </mat-form-field>
 </form>
 
-<div fxLayout="column" fxLayoutAlign="center center">
+<div class="doing-status" fxLayout="column" fxLayoutAlign="center center">
   <h1 class="doing-task">Doing : {{ doing }}</h1>
   <div fxLayout="row" fxLayoutAlign="center center">
     <mat-icon class="time-icon">schedule</mat-icon>

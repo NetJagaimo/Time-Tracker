@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { TaskService } from '../task.service';
-import { RxDatabase } from 'rxdb';
+import { Task, TaskService } from '../task.service';
 import { ElectronService } from '../core/electron.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+
 
 @Component({
   selector: 'app-traywindow',
@@ -18,6 +21,10 @@ export class TraywindowComponent implements OnInit {
   timer: any;
   isPaused: boolean = false;
   taskID: number;
+  doingOptions: string[] = [];
+  filteredDoingOptions: Observable<string[]>;
+  
+  @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   doingFormControl = new FormControl('', [
     Validators.required,
@@ -28,11 +35,41 @@ export class TraywindowComponent implements OnInit {
     private electronService: ElectronService
   ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    this.taskService.getAll()
+      .subscribe({
+        next: (results: Task[]) => {
+          const taskNames: string[] = results.map(result => result.taskName);
+          this.doingOptions = [...new Set(taskNames)].reverse();
+          this.filteredDoingOptions = this.doingFormControl.valueChanges.pipe(
+            startWith(""),
+            map(value => this._filter(value))
+          );
+        },
+        error: console.error
+      });
+  }
+
+  getDoingOptions() {
+    this.taskService.getAll()
+      .subscribe({
+        next: (results: Task[]) => {
+          const taskNames: string[] = results.map(result => result.taskName);
+          this.doingOptions = [...new Set(taskNames)];
+        },
+        error: console.error
+      });
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.doingOptions.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
   onEnter(event: KeyboardEvent): void {
     if (event.key === "Enter") {
+      this.autocomplete.closePanel();
       this.doingFormControl.disable();
       const value = this.doingInput.trim()
       if(value) {

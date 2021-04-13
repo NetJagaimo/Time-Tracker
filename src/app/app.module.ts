@@ -14,6 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { MainComponent } from './main/main.component';
 import { TaskService } from './task.service';
@@ -29,6 +30,7 @@ import { ElectronService } from './core/electron.service';
     DurationPipe,
   ],
   imports: [
+    MatAutocompleteModule,
     MatToolbarModule,
     MatTableModule,
     MatInputModule,

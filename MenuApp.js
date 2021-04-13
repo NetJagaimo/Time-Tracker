@@ -12,8 +12,8 @@ class MenuApp {
   createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-      width: 400,
-      height: 350,
+      width: 450,
+      height: 400,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false
