@@ -5,11 +5,6 @@ import { TraywindowComponent } from './traywindow/traywindow.component';
 
 const routes: Routes = [
   {
-    path:'',
-    redirectTo: "traywindow",
-    pathMatch: "full"
-  },
-  {
     path: "main",
     component: MainComponent
   },

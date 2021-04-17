@@ -18,4 +18,8 @@ export class ElectronService {
   createMainWindow() {
     ipcRenderer.invoke('create-main-window');
   }
+
+  exitApp() {
+    ipcRenderer.invoke('exit-app');
+  }
 }

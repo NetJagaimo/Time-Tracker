@@ -147,6 +147,18 @@ export class TraywindowComponent implements OnInit {
     this.electronService.createMainWindow();
   }
 
+  exitApp() {
+    if(this.doing) {
+      this.recordEndTime();
+      this.stopTimer();
+      this.taskService.recordTaskEndTime(this.taskID, this.endTime).then(() => {
+        this.electronService.exitApp();
+      });
+    } else {
+      this.electronService.exitApp();
+    } 
+  }
+
   showEvent($event) {
     console.dir($event);
   }

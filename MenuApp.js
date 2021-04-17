@@ -1,5 +1,4 @@
-const { BrowserWindow, Tray } = require('electron');
-const url = require('url');
+const { app, BrowserWindow, Tray } = require('electron');
 const path = require('path');
 
 
@@ -9,12 +8,13 @@ class MenuApp {
     this.win = this.createWindow();
     this.createWindow();
     this.createTray();
+    this.isMainWindowOpen = false;
   }
 
   createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-      width: 450,
+      width: 400,
       height: 400,
       webPreferences: {
         nodeIntegration: true,
@@ -23,26 +23,29 @@ class MenuApp {
       frame: false,
       show: false,
       movable: false,
-      resizable: false,
-      closable: false
+      resizable: false
     });
+    
+    if(app.isPackaged) {
+      win.loadURL(new URL(
+        path.join(__dirname, 'dist/time-tracker/index.html#', 'traywindow'),
+        'file:'
+      ).href);
+    } else {
+      win.loadURL('http://localhost:4200#/traywindow');
+    }
 
-    // win.loadURL('http://localhost:4200/traywindow');
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, '/dist/time-tracker/index.html#'),
-      protocol: 'file:',
-      slashes: true
-    }))
-
-    win.on('close', () => {
-      this.win = undefined;
+    win.on('close', (e) => {
+      e.preventDefault();
+      this.win.hide();
     })
     
     return win;
   }
 
   createTray() {
-    this.tray = new Tray('src/assets/netjagaimo_icon.png');
+    const trayIconPath = app.isPackaged ? path.join(process.resourcesPath,"static/netjagaimo_icon.png") : "static/netjagaimo_icon.png";
+    this.tray = new Tray(trayIconPath);
   
     this.tray.on('click', (event, bounds, position) => {
       this.toggleWindow(bounds);
@@ -54,7 +57,9 @@ class MenuApp {
 
     // comment when on develop mode
     this.win.on('blur', () => {
-      this.win.hide();
+      if(!this.isMainWindowOpen && app.isPackaged) {
+        this.win.hide();
+      }
     });
   }
 
