@@ -4,8 +4,13 @@ const path = require('path');
 
 let menuApp;
 
+if (app.isPackaged && process.platform == 'darwin') {
+  app.dock.hide();
+}
+
 const createMainWindow = () => {
   menuApp.isMainWindowOpen = true;
+  app.dock.show();
 
   const win = new BrowserWindow({
     width: 800,
@@ -35,6 +40,7 @@ const createMainWindow = () => {
 
   win.on('close', () => {
     menuApp.isMainWindowOpen = false;
+    app.dock.hide();
   });
 
 };
