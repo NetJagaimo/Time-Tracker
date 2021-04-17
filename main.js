@@ -10,7 +10,6 @@ if (app.isPackaged && process.platform == 'darwin') {
 
 const createMainWindow = () => {
   menuApp.isMainWindowOpen = true;
-  app.dock.show();
 
   const win = new BrowserWindow({
     width: 800,
@@ -40,7 +39,6 @@ const createMainWindow = () => {
 
   win.on('close', () => {
     menuApp.isMainWindowOpen = false;
-    app.dock.hide();
   });
 
 };
