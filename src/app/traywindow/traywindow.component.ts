@@ -107,9 +107,11 @@ export class TraywindowComponent implements OnInit {
   }
 
   onStop() {
-    this.recordEndTime();
-    this.stopTimer();
-    this.taskService.recordTaskEndTime(this.taskID, this.endTime);
+    if(!this.isPaused) {
+      this.recordEndTime();
+      this.stopTimer();
+      this.taskService.recordTaskEndTime(this.taskID, this.endTime);
+    }
     this.reset();
     this.doingFormControl.enable();
   }
